@@ -1,0 +1,9 @@
+*.pkl
+*.log
+*.json
+*.csv
+assets/
+models/
+.env
+__pycache__/
+*.pyc
