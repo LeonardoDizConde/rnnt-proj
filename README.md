@@ -4,7 +4,7 @@ Este projeto implementa um webhook Python integrado ao TheHive e Cortex para cla
 
 ## Principais recursos:
 - Análise automática com VirusTotal e AbuseIPDB via Cortex
-- Classificação com PLN (Naive Bayes + SVC + Regra)
+- Classificação com LSTM
 - Enriquecimento e comentários automáticos no TheHive
 - Treinamento supervisionado com relatórios em .txt
 
