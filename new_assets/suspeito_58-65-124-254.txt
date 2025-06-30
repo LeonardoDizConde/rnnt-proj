@@ -1,0 +1,1039 @@
+{
+  "data": {
+    "id": "58.65.124.254",
+    "type": "ip_address",
+    "links": {
+      "self": "https://www.virustotal.com/api/v3/ip_addresses/58.65.124.254"
+    },
+    "attributes": {
+      "asn": 9694,
+      "network": "58.65.64.0/18",
+      "tags": [],
+      "last_analysis_results": {
+        "Acronis": {
+          "method": "blacklist",
+          "engine_name": "Acronis",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "0xSI_f33d": {
+          "method": "blacklist",
+          "engine_name": "0xSI_f33d",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Abusix": {
+          "method": "blacklist",
+          "engine_name": "Abusix",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "ADMINUSLabs": {
+          "method": "blacklist",
+          "engine_name": "ADMINUSLabs",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Axur": {
+          "method": "blacklist",
+          "engine_name": "Axur",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Criminal IP": {
+          "method": "blacklist",
+          "engine_name": "Criminal IP",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "AILabs (MONITORAPP)": {
+          "method": "blacklist",
+          "engine_name": "AILabs (MONITORAPP)",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "AlienVault": {
+          "method": "blacklist",
+          "engine_name": "AlienVault",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "alphaMountain.ai": {
+          "method": "blacklist",
+          "engine_name": "alphaMountain.ai",
+          "category": "malicious",
+          "result": "malicious"
+        },
+        "AlphaSOC": {
+          "method": "blacklist",
+          "engine_name": "AlphaSOC",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Antiy-AVL": {
+          "method": "blacklist",
+          "engine_name": "Antiy-AVL",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "ArcSight Threat Intelligence": {
+          "method": "blacklist",
+          "engine_name": "ArcSight Threat Intelligence",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "AutoShun": {
+          "method": "blacklist",
+          "engine_name": "AutoShun",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "benkow.cc": {
+          "method": "blacklist",
+          "engine_name": "benkow.cc",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Bfore.Ai PreCrime": {
+          "method": "blacklist",
+          "engine_name": "Bfore.Ai PreCrime",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "BitDefender": {
+          "method": "blacklist",
+          "engine_name": "BitDefender",
+          "category": "malicious",
+          "result": "malware"
+        },
+        "Bkav": {
+          "method": "blacklist",
+          "engine_name": "Bkav",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Blueliv": {
+          "method": "blacklist",
+          "engine_name": "Blueliv",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Certego": {
+          "method": "blacklist",
+          "engine_name": "Certego",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Chong Lua Dao": {
+          "method": "blacklist",
+          "engine_name": "Chong Lua Dao",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "CINS Army": {
+          "method": "blacklist",
+          "engine_name": "CINS Army",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Cluster25": {
+          "method": "blacklist",
+          "engine_name": "Cluster25",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "CRDF": {
+          "method": "blacklist",
+          "engine_name": "CRDF",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "CSIS Security Group": {
+          "method": "blacklist",
+          "engine_name": "CSIS Security Group",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Snort IP sample list": {
+          "method": "blacklist",
+          "engine_name": "Snort IP sample list",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "CMC Threat Intelligence": {
+          "method": "blacklist",
+          "engine_name": "CMC Threat Intelligence",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Cyan": {
+          "method": "blacklist",
+          "engine_name": "Cyan",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Cyble": {
+          "method": "blacklist",
+          "engine_name": "Cyble",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "CyRadar": {
+          "method": "blacklist",
+          "engine_name": "CyRadar",
+          "category": "malicious",
+          "result": "malicious"
+        },
+        "DNS8": {
+          "method": "blacklist",
+          "engine_name": "DNS8",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Dr.Web": {
+          "method": "blacklist",
+          "engine_name": "Dr.Web",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Ermes": {
+          "method": "blacklist",
+          "engine_name": "Ermes",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "ESET": {
+          "method": "blacklist",
+          "engine_name": "ESET",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "ESTsecurity": {
+          "method": "blacklist",
+          "engine_name": "ESTsecurity",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "EmergingThreats": {
+          "method": "blacklist",
+          "engine_name": "EmergingThreats",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Emsisoft": {
+          "method": "blacklist",
+          "engine_name": "Emsisoft",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Forcepoint ThreatSeeker": {
+          "method": "blacklist",
+          "engine_name": "Forcepoint ThreatSeeker",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Fortinet": {
+          "method": "blacklist",
+          "engine_name": "Fortinet",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "G-Data": {
+          "method": "blacklist",
+          "engine_name": "G-Data",
+          "category": "malicious",
+          "result": "malware"
+        },
+        "GCP Abuse Intelligence": {
+          "method": "blacklist",
+          "engine_name": "GCP Abuse Intelligence",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Google Safebrowsing": {
+          "method": "blacklist",
+          "engine_name": "Google Safebrowsing",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "GreenSnow": {
+          "method": "blacklist",
+          "engine_name": "GreenSnow",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Gridinsoft": {
+          "method": "blacklist",
+          "engine_name": "Gridinsoft",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Heimdal Security": {
+          "method": "blacklist",
+          "engine_name": "Heimdal Security",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Hunt.io Intelligence": {
+          "method": "blacklist",
+          "engine_name": "Hunt.io Intelligence",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "IPsum": {
+          "method": "blacklist",
+          "engine_name": "IPsum",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Juniper Networks": {
+          "method": "blacklist",
+          "engine_name": "Juniper Networks",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Kaspersky": {
+          "method": "blacklist",
+          "engine_name": "Kaspersky",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Lionic": {
+          "method": "blacklist",
+          "engine_name": "Lionic",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Lumu": {
+          "method": "blacklist",
+          "engine_name": "Lumu",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "MalwarePatrol": {
+          "method": "blacklist",
+          "engine_name": "MalwarePatrol",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "MalwareURL": {
+          "method": "blacklist",
+          "engine_name": "MalwareURL",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Malwared": {
+          "method": "blacklist",
+          "engine_name": "Malwared",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Mimecast": {
+          "method": "blacklist",
+          "engine_name": "Mimecast",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Netcraft": {
+          "method": "blacklist",
+          "engine_name": "Netcraft",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "OpenPhish": {
+          "method": "blacklist",
+          "engine_name": "OpenPhish",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Phishing Database": {
+          "method": "blacklist",
+          "engine_name": "Phishing Database",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "PhishFort": {
+          "method": "blacklist",
+          "engine_name": "PhishFort",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "PhishLabs": {
+          "method": "blacklist",
+          "engine_name": "PhishLabs",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Phishtank": {
+          "method": "blacklist",
+          "engine_name": "Phishtank",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "PREBYTES": {
+          "method": "blacklist",
+          "engine_name": "PREBYTES",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "PrecisionSec": {
+          "method": "blacklist",
+          "engine_name": "PrecisionSec",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Quick Heal": {
+          "method": "blacklist",
+          "engine_name": "Quick Heal",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Quttera": {
+          "method": "blacklist",
+          "engine_name": "Quttera",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "SafeToOpen": {
+          "method": "blacklist",
+          "engine_name": "SafeToOpen",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Sansec eComscan": {
+          "method": "blacklist",
+          "engine_name": "Sansec eComscan",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Scantitan": {
+          "method": "blacklist",
+          "engine_name": "Scantitan",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "SCUMWARE.org": {
+          "method": "blacklist",
+          "engine_name": "SCUMWARE.org",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Seclookup": {
+          "method": "blacklist",
+          "engine_name": "Seclookup",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "SecureBrain": {
+          "method": "blacklist",
+          "engine_name": "SecureBrain",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "SOCRadar": {
+          "method": "blacklist",
+          "engine_name": "SOCRadar",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Sophos": {
+          "method": "blacklist",
+          "engine_name": "Sophos",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Spam404": {
+          "method": "blacklist",
+          "engine_name": "Spam404",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "StopForumSpam": {
+          "method": "blacklist",
+          "engine_name": "StopForumSpam",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Sucuri SiteCheck": {
+          "method": "blacklist",
+          "engine_name": "Sucuri SiteCheck",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "ThreatHive": {
+          "method": "blacklist",
+          "engine_name": "ThreatHive",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Threatsourcing": {
+          "method": "blacklist",
+          "engine_name": "Threatsourcing",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Trustwave": {
+          "method": "blacklist",
+          "engine_name": "Trustwave",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Underworld": {
+          "method": "blacklist",
+          "engine_name": "Underworld",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "URLhaus": {
+          "method": "blacklist",
+          "engine_name": "URLhaus",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "URLQuery": {
+          "method": "blacklist",
+          "engine_name": "URLQuery",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "Viettel Threat Intelligence": {
+          "method": "blacklist",
+          "engine_name": "Viettel Threat Intelligence",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "VIPRE": {
+          "method": "blacklist",
+          "engine_name": "VIPRE",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "VX Vault": {
+          "method": "blacklist",
+          "engine_name": "VX Vault",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "ViriBack": {
+          "method": "blacklist",
+          "engine_name": "ViriBack",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Webroot": {
+          "method": "blacklist",
+          "engine_name": "Webroot",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Yandex Safebrowsing": {
+          "method": "blacklist",
+          "engine_name": "Yandex Safebrowsing",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "ZeroCERT": {
+          "method": "blacklist",
+          "engine_name": "ZeroCERT",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "desenmascara.me": {
+          "method": "blacklist",
+          "engine_name": "desenmascara.me",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "malwares.com URL checker": {
+          "method": "blacklist",
+          "engine_name": "malwares.com URL checker",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "securolytics": {
+          "method": "blacklist",
+          "engine_name": "securolytics",
+          "category": "harmless",
+          "result": "clean"
+        },
+        "Xcitium Verdict Cloud": {
+          "method": "blacklist",
+          "engine_name": "Xcitium Verdict Cloud",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "zvelo": {
+          "method": "blacklist",
+          "engine_name": "zvelo",
+          "category": "undetected",
+          "result": "unrated"
+        },
+        "ZeroFox": {
+          "method": "blacklist",
+          "engine_name": "ZeroFox",
+          "category": "undetected",
+          "result": "unrated"
+        }
+      },
+      "regional_internet_registry": "APNIC",
+      "last_https_certificate": {
+        "cert_signature": {
+          "signature_algorithm": "sha256RSA",
+          "signature": "c015e19c5f639433e6b1b18948a053c0ad7f6be5d941b6a47cc1069a445c270a1e6578914abc84572778b977aa6c7740449e88b007e12cc04cbf598f40d3dd21d9da2574fb5e746a4f2da74f1a7e4190dec604dee2fdfe89b0120f3896b66c56999d8ba66ac31ba68dce7667d5ba1c1db87a87767b853397c7d32001756224f1656794d0f18b8fa99b600fc27c9a4bd7c2e05079ff8b2f994fcc635be656905e6a470565e4be317199781d1bfef63ffbf48cae061ff56cadff1f9bca3df5062cf2384e6523583893dde85841de4b70ddf65f88f3b682df922d0aecdf317a4c43106b9d2d9f16561ab22c5539e3da170bb5b418f36353929be5a2f109db17d11e"
+        },
+        "extensions": {
+          "subject_key_identifier": "aa260869b54e6dba4230f63e09c0c64ec32a513b",
+          "authority_key_identifier": {
+            "keyid": "aa260869b54e6dba4230f63e09c0c64ec32a513b"
+          },
+          "CA": true
+        },
+        "validity": {
+          "not_after": "2019-11-09 19:03:09",
+          "not_before": "2017-11-09 19:03:09"
+        },
+        "size": 1035,
+        "version": "V3",
+        "public_key": {
+          "algorithm": "RSA",
+          "rsa": {
+            "modulus": "e782ac8760f3b0ffa328009fb2da82110e38c3efe9d40f53bec9159b2076a19ac036930daaf5049c8813b6403bc0eb46c320001e3ee4bd9ab3001b2532d9e61413d63c2b5119e5fc02bcbfb713ecd56aa4cd2ba7dfedd427585ebc5fb9eaae16d548b73b04532a9c3f129801684b05648aa7044571f4775f1d2114165d12418893045733b7b6ea714ae1b29d6b754b8cb0b2bd867e6363eacafa83eb501a457e6177f708f301befe9b05b4eee64c5fd2e9a0b360c6396d7fc722b36128f6738547f66103604687e371a58a9cb57bec9e7ccb2c0b0c3711c7348569200bf016827099de1b3ee4d70eb0231c366636bc1bf7c6be3469759c2e199dc7d604710f0d",
+            "exponent": "10001",
+            "key_size": 2048
+          }
+        },
+        "thumbprint_sha256": "89363f8517e290104b98430935c28a781ab353d29d5be7dd6f5bae6f28a38c71",
+        "thumbprint": "4f3f4d56f59eb7d2523b76b5d1101fd059524af8",
+        "serial_number": "8bcc0baa9f236376",
+        "issuer": {
+          "C": "US",
+          "ST": "New York",
+          "L": "Amityville",
+          "O": "Speco Technologies",
+          "OU": "Engineering",
+          "CN": "DVR",
+          "1.2.840.113549.1.9.1": "teng@specotech.com"
+        },
+        "subject": {
+          "C": "US",
+          "ST": "New York",
+          "L": "Amityville",
+          "O": "Speco Technologies",
+          "OU": "Engineering",
+          "CN": "DVR",
+          "1.2.840.113549.1.9.1": "teng@specotech.com"
+        }
+      },
+      "as_owner": "Seokyung Cable Television Co.. Ltd.",
+      "whois_date": 1749055702,
+      "last_analysis_stats": {
+        "malicious": 4,
+        "suspicious": 0,
+        "undetected": 33,
+        "harmless": 57,
+        "timeout": 0
+      },
+      "whois": "inetnum: 58.65.64.0 - 58.65.127.255\nnetname: SCSNET\ndescr: Seokyung Cable Television Co.. Ltd.\nadmin-c: IM853-AP\ntech-c: IM853-AP\ncountry: KR\nstatus: ALLOCATED PORTABLE\nmnt-by: MNT-KRNIC-AP\nmnt-irt: IRT-KRNIC-KR\nlast-modified: 2017-02-02T04:39:20Z\nsource: APNIC\nirt: IRT-KRNIC-KR\naddress: 9, Jinheung-gil, Naju-si, Jeollanam-do\ne-mail: irt@nic.or.kr\nabuse-mailbox: irt@nic.or.kr\nadmin-c: IM574-AP\ntech-c: IM574-AP\nauth: # Filtered\nremarks: irt@nic.or.kr was validated on 2020-04-09\nmnt-by: MNT-KRNIC-AP\nlast-modified: 2025-04-10T04:49:23Z\nsource: APNIC\nperson: IP Manager\naddress: Gyeongsangnam-do Jinju-si Jinnyangho-ro 532\ncountry: KR\nphone: +82-55-740-3001\ne-mail: isp@scs.co.kr\nnic-hdl: IM853-AP\nmnt-by: MNT-KRNIC-AP\nlast-modified: 2023-11-03T04:22:02Z\nsource: APNIC\ninetnum: 58.65.64.0 - 58.65.127.255\nnetname: SCSNET-KR\ndescr: Seokyung Cable Television Co.. Ltd.\ncountry: KR\nadmin-c: WJ172-KR\ntech-c: UC172-KR\nstatus: ALLOCATED PORTABLE\nmnt-by: MNT-KRNIC-AP\nmnt-irt: IRT-KRNIC-KR\nchanged: hostmaster@nic.or.kr 20240912\nremarks: This information has been partially mirrored by APNIC from\nremarks: KRNIC. To obtain more specific information, please use the\nremarks: KRNIC whois server at whois.kisa.or.kr.\nsource: KRNIC\nperson: IP Manager\naddress: Gyeongsangnam-do Jinju-si Jinnyangho-ro 532\naddress: 532 (DongSungDong)\ncountry: KR\nphone: +82-55-740-3001\ne-mail: isp@scs.co.kr\nnic-hdl: UC172-KR\nmnt-by: MNT-KRNIC-AP\nchanged: hostmaster@nic.or.kr 20240912\nremarks: This information has been partially mirrored by APNIC from\nremarks: KRNIC. To obtain more specific information, please use the\nremarks: KRNIC whois server at whois.kisa.or.kr.\nsource: KRNIC\nperson: IP Manager\naddress: Gyeongsangnam-do Jinju-si Jinnyangho-ro 532\naddress: 532 (DongSungDong)\ncountry: KR\nphone: +82-55-740-3001\ne-mail: isp@scs.co.kr\nnic-hdl: WJ172-KR\nmnt-by: MNT-KRNIC-AP\nchanged: hostmaster@nic.or.kr 20240912\nremarks: This information has been partially mirrored by APNIC from\nremarks: KRNIC. To obtain more specific information, please use the\nremarks: KRNIC whois server at whois.kisa.or.kr.\nsource: KRNIC\n",
+      "rdap": {
+        "object_class_name": "ip network",
+        "handle": "58.65.64.0 - 58.65.127.255",
+        "start_address": "58.65.64.0",
+        "end_address": "58.65.127.255",
+        "ip_version": "v4",
+        "name": "SCSNET-KR",
+        "type": "ALLOCATED PORTABLE",
+        "country": "KR",
+        "status": [
+          "active"
+        ],
+        "links": [
+          {
+            "href": "https://krnic.rdap.apnic.net/ip/58.65.64.0/18",
+            "rel": "self",
+            "type": "application/rdap+json",
+            "value": "https://krnic.rdap.apnic.net/ip/58.65.124.254",
+            "title": "",
+            "media": "",
+            "href_lang": []
+          }
+        ],
+        "notices": [
+          {
+            "title": "Source",
+            "description": [
+              "Objects returned came from source",
+              "KRNIC"
+            ],
+            "links": [],
+            "type": ""
+          },
+          {
+            "title": "Terms and Conditions",
+            "description": [
+              "This is the APNIC WHOIS Database query service. The objects are in RDAP format.",
+              "This information has been partially mirrored by APNIC from KRNIC. To obtain more specific information, please use the KRNIC whois server at whois.kisa.or.kr."
+            ],
+            "links": [
+              {
+                "href": "http://www.apnic.net/db/dbcopyright.html",
+                "rel": "terms-of-service",
+                "type": "text/html",
+                "value": "https://krnic.rdap.apnic.net/ip/58.65.124.254",
+                "title": "",
+                "media": "",
+                "href_lang": []
+              }
+            ],
+            "type": ""
+          },
+          {
+            "title": "Whois Inaccuracy Reporting",
+            "description": [
+              "If you see inaccuracies in the results, please visit: "
+            ],
+            "links": [
+              {
+                "href": "https://www.apnic.net/manage-ip/using-whois/abuse-and-spamming/invalid-contact-form",
+                "rel": "inaccuracy-report",
+                "type": "text/html",
+                "value": "https://krnic.rdap.apnic.net/ip/58.65.124.254",
+                "title": "",
+                "media": "",
+                "href_lang": []
+              }
+            ],
+            "type": ""
+          }
+        ],
+        "rdap_conformance": [
+          "nro_rdap_profile_0",
+          "cidr0",
+          "rdap_level_0"
+        ],
+        "entities": [
+          {
+            "object_class_name": "entity",
+            "handle": "UC172-KR",
+            "vcard_array": [
+              {
+                "name": "version",
+                "type": "text",
+                "values": [
+                  "4.0"
+                ],
+                "parameters": {}
+              },
+              {
+                "name": "fn",
+                "type": "text",
+                "values": [
+                  "IP Manager"
+                ],
+                "parameters": {}
+              },
+              {
+                "name": "kind",
+                "type": "text",
+                "values": [
+                  "individual"
+                ],
+                "parameters": {}
+              },
+              {
+                "name": "adr",
+                "parameters": {
+                  "label": [
+                    "Gyeongsangnam-do Jinju-si Jinnyangho-ro 532\n532 (DongSungDong)"
+                  ]
+                },
+                "type": "text",
+                "values": [
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ]
+              },
+              {
+                "name": "tel",
+                "parameters": {
+                  "type": [
+                    "voice"
+                  ]
+                },
+                "type": "text",
+                "values": [
+                  "+82-55-740-3001"
+                ]
+              },
+              {
+                "name": "email",
+                "type": "text",
+                "values": [
+                  "isp@scs.co.kr"
+                ],
+                "parameters": {}
+              }
+            ],
+            "roles": [
+              "technical"
+            ],
+            "links": [
+              {
+                "href": "https://krnic.rdap.apnic.net/entity/UC172-KR",
+                "rel": "self",
+                "type": "application/rdap+json",
+                "value": "https://krnic.rdap.apnic.net/ip/58.65.124.254",
+                "title": "",
+                "media": "",
+                "href_lang": []
+              }
+            ],
+            "public_ids": [],
+            "entities": [],
+            "remarks": [],
+            "events": [],
+            "as_event_actor": [],
+            "status": [],
+            "port43": "",
+            "networks": [],
+            "autnums": [],
+            "url": "",
+            "lang": "",
+            "rdap_conformance": []
+          },
+          {
+            "object_class_name": "entity",
+            "handle": "WJ172-KR",
+            "vcard_array": [
+              {
+                "name": "version",
+                "type": "text",
+                "values": [
+                  "4.0"
+                ],
+                "parameters": {}
+              },
+              {
+                "name": "fn",
+                "type": "text",
+                "values": [
+                  "IP Manager"
+                ],
+                "parameters": {}
+              },
+              {
+                "name": "kind",
+                "type": "text",
+                "values": [
+                  "individual"
+                ],
+                "parameters": {}
+              },
+              {
+                "name": "adr",
+                "parameters": {
+                  "label": [
+                    "Gyeongsangnam-do Jinju-si Jinnyangho-ro 532\n532 (DongSungDong)"
+                  ]
+                },
+                "type": "text",
+                "values": [
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ]
+              },
+              {
+                "name": "tel",
+                "parameters": {
+                  "type": [
+                    "voice"
+                  ]
+                },
+                "type": "text",
+                "values": [
+                  "+82-55-740-3001"
+                ]
+              },
+              {
+                "name": "email",
+                "type": "text",
+                "values": [
+                  "isp@scs.co.kr"
+                ],
+                "parameters": {}
+              }
+            ],
+            "roles": [
+              "administrative"
+            ],
+            "links": [
+              {
+                "href": "https://krnic.rdap.apnic.net/entity/WJ172-KR",
+                "rel": "self",
+                "type": "application/rdap+json",
+                "value": "https://krnic.rdap.apnic.net/ip/58.65.124.254",
+                "title": "",
+                "media": "",
+                "href_lang": []
+              }
+            ],
+            "public_ids": [],
+            "entities": [],
+            "remarks": [],
+            "events": [],
+            "as_event_actor": [],
+            "status": [],
+            "port43": "",
+            "networks": [],
+            "autnums": [],
+            "url": "",
+            "lang": "",
+            "rdap_conformance": []
+          },
+          {
+            "object_class_name": "entity",
+            "handle": "IRT-KRNIC-KR",
+            "vcard_array": [
+              {
+                "name": "version",
+                "type": "text",
+                "values": [
+                  "4.0"
+                ],
+                "parameters": {}
+              },
+              {
+                "name": "fn",
+                "type": "text",
+                "values": [
+                  "IRT-KRNIC-KR"
+                ],
+                "parameters": {}
+              },
+              {
+                "name": "kind",
+                "type": "text",
+                "values": [
+                  "group"
+                ],
+                "parameters": {}
+              },
+              {
+                "name": "adr",
+                "parameters": {
+                  "label": [
+                    "Seocho-ro 398, Seocho-gu, Seoul, Korea"
+                  ]
+                },
+                "type": "text",
+                "values": [
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ]
+              },
+              {
+                "name": "email",
+                "type": "text",
+                "values": [
+                  "hostmaster@nic.or.kr"
+                ],
+                "parameters": {}
+              },
+              {
+                "name": "email",
+                "parameters": {
+                  "pref": [
+                    "1"
+                  ]
+                },
+                "type": "text",
+                "values": [
+                  "hostmaster@nic.or.kr"
+                ]
+              }
+            ],
+            "roles": [
+              "abuse"
+            ],
+            "links": [
+              {
+                "href": "https://krnic.rdap.apnic.net/entity/IRT-KRNIC-KR",
+                "rel": "self",
+                "type": "application/rdap+json",
+                "value": "https://krnic.rdap.apnic.net/ip/58.65.124.254",
+                "title": "",
+                "media": "",
+                "href_lang": []
+              }
+            ],
+            "events": [
+              {
+                "event_action": "last changed",
+                "event_date": "2017-10-19T07:36:36Z",
+                "event_actor": "",
+                "links": []
+              }
+            ],
+            "public_ids": [],
+            "entities": [],
+            "remarks": [],
+            "as_event_actor": [],
+            "status": [],
+            "port43": "",
+            "networks": [],
+            "autnums": [],
+            "url": "",
+            "lang": "",
+            "rdap_conformance": []
+          }
+        ],
+        "port43": "whois.apnic.net",
+        "cidr0_cidrs": [
+          {
+            "v4prefix": "58.65.64.0",
+            "length": 18,
+            "v6prefix": ""
+          }
+        ],
+        "remarks": [
+          {
+            "title": "description",
+            "description": [
+              "Seokyung Cable Television Co.. Ltd."
+            ],
+            "links": [],
+            "type": ""
+          }
+        ],
+        "parent_handle": "",
+        "events": [],
+        "arin_originas0_originautnums": []
+      },
+      "jarm": "26d26d0fd26d26d22c26d26d26d26d5ff12ee3e71c26adc4e1b65a12e80dfe",
+      "continent": "AS",
+      "last_modification_date": 1750072612,
+      "total_votes": {
+        "harmless": 0,
+        "malicious": 0
+      },
+      "last_analysis_date": 1749067928,
+      "country": "KR",
+      "reputation": 0,
+      "last_https_certificate_date": 1730202446
+    }
+  }
+}

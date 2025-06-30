@@ -11,7 +11,6 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Embedding, LSTM, GlobalMaxPooling1D, Dense, Bidirectional, Dropout
-from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.utils import to_categorical
 import matplotlib.pyplot as plt
 import re
@@ -19,7 +18,6 @@ import nltk
 import spacy
 import string
 from collections import Counter
-from sklearn.metrics import confusion_matrix
 import pickle
 
 # Diretórios
@@ -31,69 +29,10 @@ MODEL_DIR.mkdir(parents=True, exist_ok=True)
 LABEL_PREFIX_MAP = {
     'benigno': 0,
     'suspeito': 1,
-    'maligno': 2,
+    'malicioso': 2,
 }
-INDEX_TO_LABEL = {v: k for k, v in LABEL_PREFIX_MAP.items()}
-ALL_CLASSIFICATIONS = [
-    "malware",
-    "phishing",
-    "botnet",
-    "trojan",
-    "ransomware",
-    "spam"
-]
 
-LABEL_MAP = {}
-INDEX_TO_LABEL = {}
-
-label_idx = 0
-
-# Benigno (sem classificação)
-LABEL_MAP["benigno"] = label_idx
-INDEX_TO_LABEL[label_idx] = "benigno"
-label_idx += 1
-
-# Suspeito
-for cls in ALL_CLASSIFICATIONS:
-    key = f"suspeito_{cls}"
-    LABEL_MAP[key] = label_idx
-    INDEX_TO_LABEL[label_idx] = key
-    label_idx += 1
-
-# Maligno
-for cls in ALL_CLASSIFICATIONS:
-    key = f"maligno_{cls}"
-    LABEL_MAP[key] = label_idx
-    INDEX_TO_LABEL[label_idx] = key
-    label_idx += 1
-
-def parse_filename(filename: str):
-    name = filename[:-4]
-    parts = name.split("_")
-
-    if len(parts) < 1:
-        return None
-
-    label_str = parts[0]  # benigno, suspeito, maligno
-
-    classification = "outro"
-    if len(parts) >= 2 and parts[1]:
-        classifications = parts[1].split("-")
-        classification = classifications[0] if classifications else "outro"
-
-    # Se benigno, forçar "outro"
-    if label_str == "benigno":
-        combined_label = "benigno_outro"
-    else:
-        if classification not in ALL_CLASSIFICATIONS:
-            classification = "outro"
-        combined_label = f"{label_str}_{classification}"
-
-    label_int = LABEL_MAP.get(combined_label)
-    if label_int is None:
-        return None
-
-    return label_int
+LABEL_INT_TO_STR = {v: k for k, v in LABEL_PREFIX_MAP.items()}
 
 # NLP
 nlp = spacy.load("en_core_web_sm")
@@ -109,9 +48,7 @@ def clean_text(text: str) -> str:
     tokens = [str(t) for t in tokens if str(t) not in stopwords]
     return " ".join(tokens)
 
-# Parse filename
 def parse_filename(filename: str):
-    # Remove .txt
     name = filename[:-4]
     parts = name.split("_")
 
@@ -125,15 +62,13 @@ def parse_filename(filename: str):
 
     if len(parts) == 2:
         if parts[1]:
-            # Tem classificações
             classifications = parts[1].split("-")
     elif len(parts) == 3:
-        # Se veio com __ (parte 1 vazia), parts[1] == ""
         if parts[1]:
             classifications = parts[1].split("-")
         if parts[2]:
             ip = parts[2].replace("-", ".")
-    
+
     return label_int, classifications, ip
 
 def load_reports() -> Tuple[List[str], List[int]]:
@@ -164,10 +99,10 @@ def load_reports() -> Tuple[List[str], List[int]]:
     print()
     counts = Counter(labels)
     print(f"[INFO] Distribuição das classes (total de arquivos: {total_files}):")
-    for label in range(len(INDEX_TO_LABEL)):
+    for label in range(len(LABEL_PREFIX_MAP)):
         count = counts.get(label, 0)
         perc = (count / total_files) * 100 if total_files else 0
-        print(f"\t{INDEX_TO_LABEL[label]}: {perc:.2f}% ({count})")
+        print(f"\t{LABEL_INT_TO_STR[label]}: {perc:.2f}% ({count})")
 
     return texts, labels
 
@@ -194,34 +129,25 @@ def train():
     padded_test = pad_sequences(seq_test, padding='post')
 
     vocab_size = len(tokenizer.word_index) + 1
-    num_classes = len(LABEL_MAP)
+    num_classes = len(LABEL_PREFIX_MAP)
 
     y_train_ohe = to_categorical(y_train, num_classes=num_classes)
     y_test_ohe = to_categorical(y_test, num_classes=num_classes)
 
     model = Sequential([
         Embedding(input_dim=vocab_size, output_dim=64),
-        LSTM(128, return_sequences=True),
+        Bidirectional(LSTM(128, return_sequences=True)),
         GlobalMaxPooling1D(),
-        Dense(64, activation='relu'),
-        Dense(num_classes, activation='softmax')
+        Dense(128, activation='relu'),
+        Dropout(0.3),
+        Dense(3, activation='softmax')
     ])
-
-    # model = Sequential([
-    #     Embedding(input_dim=vocab_size, output_dim=128),
-    #     Bidirectional(LSTM(128, return_sequences=True)),
-    #     GlobalMaxPooling1D(),
-    #     Dense(128, activation='relu'),
-    #     Dropout(0.3),
-    #     Dense(13, activation='softmax')
-    # ])
 
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
     class_weights = compute_class_weight(class_weight='balanced', classes=np.unique(y_train), y=y_train)
     class_weight_dict = dict(enumerate(class_weights))
 
-    # EarlyStopping + Checkpoint
     callbacks = [
         EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True),
         ModelCheckpoint(filepath=MODEL_DIR / "best_model.keras", monitor='val_loss', save_best_only=True)
@@ -239,36 +165,31 @@ def train():
     return model, padded_test, y_test, tokenizer
 
 if __name__ == "__main__":
-    model, X_test, y_test, tokenizer = train()
-    if model:
+    result = train()
+    if result:
+        model, X_test, y_test, tokenizer = result
         print(model.summary())
 
-        # Prever todo o conjunto de teste em batch
         preds = model.predict(X_test, verbose=0)
         y_pred = preds.argmax(axis=-1)
 
-        num_classes = len(LABEL_MAP)
-
-        # Criar matriz de confusão zerada
+        num_classes = len(LABEL_PREFIX_MAP)
         confusion_matrix = np.zeros((num_classes, num_classes), dtype=int)
 
-        # Preencher a matriz de confusão
         for true_label, pred_label in zip(y_test, y_pred):
             confusion_matrix[true_label, pred_label] += 1
 
-        # Plotar matriz
-        fig, ax = plt.subplots(figsize=(12,12))
+        fig, ax = plt.subplots(figsize=(3,3))
         cax = ax.matshow(confusion_matrix, cmap='Blues')
 
         plt.title("Matriz de Confusão")
         plt.xlabel("Predito")
         plt.ylabel("Verdadeiro")
 
-        tick_labels = [INDEX_TO_LABEL[i] for i in range(num_classes)]
+        tick_labels = [LABEL_INT_TO_STR[i] for i in range(num_classes)]
         plt.xticks(range(num_classes), tick_labels, rotation=90)
         plt.yticks(range(num_classes), tick_labels)
 
-        # Inserir números nas células
         for (i, j), val in np.ndenumerate(confusion_matrix):
             ax.text(j, i, f"{val}", ha="center", va="center", color="black")
 

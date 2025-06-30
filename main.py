@@ -4,6 +4,10 @@ import time
 from pathlib import Path
 import numpy as np
 import pickle
+import spacy
+import nltk
+import string
+import joblib
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
@@ -13,8 +17,25 @@ HEADERS = {"x-apikey": VIRUSTOTAL_API_KEY}
 ASSETS_DIR = Path("./assets")
 ASSETS_DIR.mkdir(exist_ok=True)
 
-# Índice das classes - ajuste conforme seu treino
-INDEX_TO_LABEL = ["limpo", "malicioso"]
+# Labels - ajuste conforme seu treino
+LABEL_PREFIX_MAP = {
+    'benigno': 0,
+    'suspeito': 1,
+    'malicioso': 2,
+}
+
+MODELOS_PLN = {
+    "bow_nb": joblib.load("./models/bow_nb.joblib"),
+    "tfidf_svc": joblib.load("./models/tfidf_svc.joblib")
+}
+
+LABEL_INT_TO_STR = {v: k for k, v in LABEL_PREFIX_MAP.items()}
+
+# NLP
+nlp = spacy.load("en_core_web_sm")
+nltk.download('stopwords')
+stopwords = nltk.corpus.stopwords.words('english')
+pontuacao_lista = list(string.punctuation.strip()) + ['...', '“', '”']
 
 # Carregar modelo treinado
 model = load_model("models/lstm/best_model.keras")
@@ -23,11 +44,12 @@ model = load_model("models/lstm/best_model.keras")
 with open("./models/lstm/tokenizer.pkl", "rb") as f:
     tokenizer = pickle.load(f)
 
-# Função para limpar texto (adicione a sua lógica aqui)
-def clean_text(text):
-    text = text.lower()
-    text = text.replace("\n", " ").replace("\r", " ")
-    return text
+# Função de limpeza usada no treino
+def clean_text(text: str) -> str:
+    tokens = nlp(text)
+    tokens = [str(t).lower() for t in tokens if str(t) not in pontuacao_lista]
+    tokens = [str(t) for t in tokens if str(t) not in stopwords]
+    return " ".join(tokens)
 
 # Consulta VirusTotal por IP
 def consultar_virustotal(ip):
@@ -38,38 +60,39 @@ def consultar_virustotal(ip):
     else:
         print(f"[ERRO] IP {ip} - Status {response.status_code}")
         return None
+    
+def classificar_pln(text, models):
+    def rule_based_predict(text):
+        keywords_malicious = {"malicious", "malware", "trojan", "phishing", "botnet", "miner"}
+        keywords_suspicious = {"suspicious", "spam", "unrated", "risk", "unknown"}
+        rule_weights = {**{k: 1 for k in keywords_suspicious}, **{k: 2 for k in keywords_malicious}}
+
+        score = sum(rule_weights.get(tok, 0) for tok in text.split())
+        if score >= 4:
+            return "malicioso"
+        elif score >= 1:
+            return "suspeito"
+        return "benigno"
+
+    preds = [m.predict([text])[0] for m in models.values()]
+    preds.append(rule_based_predict(text))
+    return max(set(preds), key=preds.count)
 
 # Classificar usando LSTM treinado
 def classificar(relatorio):
     try:
-        # Transformar JSON em string
         raw = json.dumps(relatorio)
-
-        # Extrair tipos detectados (opcional)
         resultados = relatorio["data"]["attributes"].get("last_analysis_results", {})
         detectados = [dados["engine_name"] for dados in resultados.values() if dados["category"] == "malicious"]
-
         classifications_text = " ".join(detectados) if detectados else ""
-
-        # Concatenar texto como no treino
         full_text = f"{raw} {classifications_text}"
-
-        # Limpar texto
         texto_limpo = clean_text(full_text)
-
-        # Transformar em sequência de tokens
         sequencia = tokenizer.texts_to_sequences([texto_limpo])
-
-        # Padronizar tamanho da sequência (ajuste maxlen conforme treino)
-        X_input = pad_sequences(sequencia, maxlen=200)
-
-        # Fazer predição
+        X_input = pad_sequences(sequencia, padding='post')
         pred = model.predict(X_input)
-
-        # Interpretar classe
         classe = int(np.argmax(pred, axis=1)[0])
 
-        classificacao = INDEX_TO_LABEL[classe]
+        classificacao = LABEL_INT_TO_STR.get(classe, "desconhecido")
 
         return {
             "classificacao": classificacao,
@@ -98,20 +121,26 @@ def coletar_e_salvar():
             classificacao = resultado["classificacao"]
             tipos = resultado["tipos_detectados"]
 
-            print("Resultado:")
+            
+            text_pln = clean_text(json.dumps(relatorio))
+            resultado_pln = classificar_pln(text_pln, MODELOS_PLN)
+
+            print("Resultado LSTM:")
             print(f"\tClassificação: {classificacao}")
             print(f"\tTipos: {tipos}")
-            # Criar nome de arquivo seguro
+
+            print("\nResultado PLN:")
+            print(f"Classificação: {resultado_pln}")
+
             ip_safe = ip.replace(".", "-")
             if tipos:
-                tipos_str = "-".join(tipos)
+                tipos_str = "-".join(tipos).replace("/", "_")
                 nome_arquivo = f"{classificacao}_{tipos_str}_{ip_safe}.txt"
             else:
                 nome_arquivo = f"{classificacao}_{ip_safe}.txt"
 
             caminho = ASSETS_DIR / nome_arquivo
 
-            # Salvar relatório JSON
             with open(caminho, "w") as f:
                 json.dump(relatorio, f, indent=2)
 
