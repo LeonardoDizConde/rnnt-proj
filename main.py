@@ -1,141 +1,124 @@
-# Imports
+import requests
 import json
+import time
 from pathlib import Path
-from typing import List, Tuple
-
-import joblib
 import numpy as np
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.svm import LinearSVC
-from sklearn.pipeline import Pipeline
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
-import nltk
-import spacy
-import string
-import os
+import pickle
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-# Definições
-# Path
+# Configurações
+VIRUSTOTAL_API_KEY = "b0ff5308c877a949a81bcf43913c0c52098fe915e88e0b9fab9ffd934d9ade65"
+HEADERS = {"x-apikey": VIRUSTOTAL_API_KEY}
 ASSETS_DIR = Path("./assets")
-MODEL_DIR = Path("./models")
-MODEL_DIR.mkdir(exist_ok=True)
+ASSETS_DIR.mkdir(exist_ok=True)
 
-# Keywords
-KEYWORDS_MALICIOUS = {"malicious", "malware", "trojan", "phishing", "botnet", "miner"}
-KEYWORDS_SUSPICIOUS = {"suspicious", "spam", "unrated", "risk", "unknown"}
-RULE_WEIGHTS = {**{k: 1 for k in KEYWORDS_SUSPICIOUS}, **{k: 2 for k in KEYWORDS_MALICIOUS}}
+# Índice das classes - ajuste conforme seu treino
+INDEX_TO_LABEL = ["limpo", "malicioso"]
 
-# ML pipeline
-PIPELINES = {
-    "bow_nb": Pipeline([
-        ("vect", CountVectorizer()),
-        ("clf", MultinomialNB()),
-    ]),
-    "tfidf_svc": Pipeline([
-        ("tfidf", TfidfVectorizer()),
-        ("clf", LinearSVC()),
-    ]),
-}
+# Carregar modelo treinado
+model = load_model("models/lstm/best_model.keras")
 
-# Carrega modelos
-nlp = spacy.load("en_core_web_sm")
-nltk.download('stopwords')
-stopwords = nltk.corpus.stopwords.words('english')
+# Carregar tokenizer treinado
+with open("./models/lstm/tokenizer.pkl", "rb") as f:
+    tokenizer = pickle.load(f)
 
-# Utils
-pontuacao_lista = list(string.punctuation.strip()) + ['...', '“', '”']
+# Função para limpar texto (adicione a sua lógica aqui)
+def clean_text(text):
+    text = text.lower()
+    text = text.replace("\n", " ").replace("\r", " ")
+    return text
 
-# Lipeza de texto
+# Consulta VirusTotal por IP
+def consultar_virustotal(ip):
+    url = f"https://www.virustotal.com/api/v3/ip_addresses/{ip}"
+    response = requests.get(url, headers=HEADERS)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"[ERRO] IP {ip} - Status {response.status_code}")
+        return None
 
-pontuacao_lista = list(string.punctuation.strip()) + ['...', '“', '”']
+# Classificar usando LSTM treinado
+def classificar(relatorio):
+    try:
+        # Transformar JSON em string
+        raw = json.dumps(relatorio)
 
-def clean_text(text: str) -> str:
-    tokens = nlp(text)
-    tokens = [str(t).lower() for t in tokens if str(t) not in pontuacao_lista]
-    tokens = [str(t) for t in tokens if str(t) not in stopwords]
-    return " ".join(tokens)
+        # Extrair tipos detectados (opcional)
+        resultados = relatorio["data"]["attributes"].get("last_analysis_results", {})
+        detectados = [dados["engine_name"] for dados in resultados.values() if dados["category"] == "malicious"]
 
-# Carrega os relatórios e faz um pré-julgamento do relatório
-def load_reports() -> Tuple[List[str], List[str]]:
-    texts, labels = [], []
-    for file in ASSETS_DIR.glob("*.txt"):
-        data = json.loads(file.read_text())
-        last_analysis_results = data['full']['attributes']['last_analysis_results']
-        malicious_count = 0
-        for _, value in last_analysis_results.items():
-            if value.get('category') in KEYWORDS_MALICIOUS or value.get('result') in KEYWORDS_MALICIOUS:
-                malicious_count += 1
-        label = (
-            "malicioso" if malicious_count >= 5 else
-            "suspeito" if 1 < malicious_count < 5 else
-            "benigno"
-        )
-        raw = json.dumps(data)
-        texts.append(clean_text(raw))
-        labels.append(label)
-    return texts, labels
+        classifications_text = " ".join(detectados) if detectados else ""
 
-# Aplica regra de peso sob os relatórios
-def rule_based_predict(text: str) -> str:
-    score = sum(RULE_WEIGHTS.get(tok, 0) for tok in text.split())
-    if score >= 4:
-        return "malicioso"
-    if score >= 1:
-        return "suspeito"
-    return "benigno"
+        # Concatenar texto como no treino
+        full_text = f"{raw} {classifications_text}"
 
-# Classifica os relatórios
-def ensemble_predict(text: str, models) -> str:
-    preds = [m.predict([text])[0] for m in models.values()]
-    preds.append(rule_based_predict(text))
-    # Voto por maioria
-    return max(set(preds), key=preds.count)
+        # Limpar texto
+        texto_limpo = clean_text(full_text)
 
-# Gera comentario com ba
-def generate_comment(label: str, raw_json: dict) -> str:
-    stats = raw_json["full"]["attributes"].get("last_analysis_stats", {})
-    mal = stats.get("malicious", 0)
-    susp = stats.get("suspicious", 0)
-    if label == "malicioso":
-        return f"Indicador classificado como malicioso pois {mal} mecanismos antivírus o marcaram como malicioso."
-    if label == "suspeito":
-        return f"Indicador classificado como suspeito com {susp} detecções suspeitas."
-    return "Indicador classificado como benigno; nenhuma detecção relevante encontrada."
+        # Transformar em sequência de tokens
+        sequencia = tokenizer.texts_to_sequences([texto_limpo])
 
-# Funções principais
-def train():
-    X, y = load_reports()
-    # Garante que nenhuma classe tenha menos de 2 amostras antes de usar stratify
-    from collections import Counter
-    counts = Counter(y)
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
-    )
-    for name, pipe in PIPELINES.items():
-        pipe.fit(X_train, y_train)
-        joblib.dump(pipe, MODEL_DIR / f"{name}.joblib")
-        preds = pipe.predict(X_test)
-        print(f"*** {name} ***")
-        print(classification_report(y_test, preds, zero_division=0))
-    print("Treino concluído.")
+        # Padronizar tamanho da sequência (ajuste maxlen conforme treino)
+        X_input = pad_sequences(sequencia, maxlen=200)
 
-    # carrega modelos treinados para uso imediato após o treino
-    return {name: joblib.load(MODEL_DIR / f"{name}.joblib") for name in PIPELINES}
+        # Fazer predição
+        pred = model.predict(X_input)
 
+        # Interpretar classe
+        classe = int(np.argmax(pred, axis=1)[0])
 
-def predict(path: Path, models):
-    raw = json.loads(path.read_text())
-    text = clean_text(json.dumps(raw))
-    label = ensemble_predict(text, models)
-    comment = generate_comment(label, raw)
-    print(json.dumps({"label": label, "comment": comment}, ensure_ascii=False, indent=2))
+        classificacao = INDEX_TO_LABEL[classe]
 
-models = train()
+        return {
+            "classificacao": classificacao,
+            "tipos_detectados": detectados
+        }
 
-predict_path = './assets'
-for filename in os.listdir(predict_path):
-  print(f"Report for {filename}:")
-  file = Path(os.path.join(predict_path, filename))
-  predict(file, models)
+    except Exception as e:
+        print(f"[ERRO] Erro ao classificar: {e}")
+        return {
+            "classificacao": "erro",
+            "tipos_detectados": []
+        }
+
+# Coletar relatórios e salvar
+def coletar_e_salvar():
+    ASSETS_DIR.mkdir(parents=True, exist_ok=True)
+
+    with open("ip_test.txt", "r") as f:
+        ips = [linha.strip() for linha in f if linha.strip()]
+
+    for ip in ips:
+        print(f"🔍 Consultando IP: {ip}")
+        relatorio = consultar_virustotal(ip)
+        if relatorio:
+            resultado = classificar(relatorio)
+            classificacao = resultado["classificacao"]
+            tipos = resultado["tipos_detectados"]
+
+            print("Resultado:")
+            print(f"\tClassificação: {classificacao}")
+            print(f"\tTipos: {tipos}")
+            # Criar nome de arquivo seguro
+            ip_safe = ip.replace(".", "-")
+            if tipos:
+                tipos_str = "-".join(tipos)
+                nome_arquivo = f"{classificacao}_{tipos_str}_{ip_safe}.txt"
+            else:
+                nome_arquivo = f"{classificacao}_{ip_safe}.txt"
+
+            caminho = ASSETS_DIR / nome_arquivo
+
+            # Salvar relatório JSON
+            with open(caminho, "w") as f:
+                json.dump(relatorio, f, indent=2)
+
+            print(f"\nSalvo como {caminho}\n")
+
+        # Evitar rate limit
+        time.sleep(15)
+
+if __name__ == "__main__":
+    coletar_e_salvar()
